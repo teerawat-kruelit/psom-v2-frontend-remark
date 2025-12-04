@@ -1,4 +1,10 @@
+'use client'
+
+import { useState } from 'react'
 import { AppSidebar, MenuItem } from '@/components/layout/app-sidebar'
+import { Button } from '@/components/ui/button'
+import { ChevronLeft } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 const menuList: MenuItem[] = [
     { href: '/data-management/branch-management', title: 'จัดการสาขา' },
@@ -47,12 +53,30 @@ export default function DataManagementLayout({
 }: {
     children: React.ReactNode
 }) {
+    const [isOpen, setIsOpen] = useState(true)
+
     return (
-        <div className="flex h-full p-2 gap-2">
-            <AppSidebar menuList={menuList} />
-            <main className="flex-1 overflow-y-auto p-6 bg-gray-50">
+        <div className="flex h-full p-2 gap-2 relative">
+            <div className={cn(
+                "transition-all duration-300 ease-in-out overflow-hidden",
+                isOpen ? "w-64 opacity-100" : "w-0 opacity-0"
+            )}>
+                <AppSidebar menuList={menuList} />
+            </div>
+            <main className="flex-1 overflow-y-auto p-6 bg-gray-50 transition-all duration-300">
                 {children}
             </main>
+            <Button
+                variant="default"
+                size="icon"
+                className={cn(
+                    "absolute top-4 rounded-full z-50 w-8 h-8 bg-gray-400/90 hover:bg-gray-400 text-white transition-all duration-300 ease-in-out",
+                    isOpen ? "left-[280px]" : "left-6"
+                )}
+                onClick={() => setIsOpen(!isOpen)}
+            >
+                <ChevronLeft className={cn("h-5 w-5 transition-transform duration-300", !isOpen && "rotate-180")} />
+            </Button>
         </div>
     )
 }
