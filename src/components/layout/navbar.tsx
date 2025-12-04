@@ -13,6 +13,7 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { HomeIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface MenuType {
     title: string
@@ -26,31 +27,23 @@ export function Navbar() {
     const isMobile = useIsMobile()
 
     const menus: MenuType[] = [
-        {
-            title: "Home", href: "/", children: [
-                { title: "Backlog", href: "/about/backlog", icon: <HomeIcon /> },
-                { title: "To Do", href: "/about/todo", icon: <HomeIcon /> },
-                { title: "Done", href: "/about/done", icon: <HomeIcon /> },
-            ]
-        },
-        {
-            title: "About", href: "/about",
-            children: [
-                { title: "Backlog", href: "/about/backlog", icon: <HomeIcon /> },
-                { title: "To Do", href: "/about/todo", icon: <HomeIcon /> },
-                { title: "Done", href: "/about/done", icon: <HomeIcon /> },
-            ]
-        },
-        { title: "Contact", href: "/contact" },
+        { title: "จัดการข้อมูล", href: "#", children: [] },
+        { title: "แบบตัดมาตรฐาน", href: "#", children: [] },
+        { title: "ใบเสนอราคา", href: "#" },
+        { title: "ใบสั่งขายสำเร็จรูป", href: "#" },
+        { title: "ใบสั่งขายสั่งตัด", href: "#" },
+        { title: "ใบนำส่งสินค้า", href: "#" },
+        { title: "สินค้าพร้อมจัดส่ง", href: "#" },
+        { title: "รายงาน", href: "#" },
     ]
 
     return (
         <NavigationMenu viewport={isMobile}>
-            <NavigationMenuList className="flex-wrap hidden md:flex">
+            <NavigationMenuList className="flex-wrap gap-x-6 hidden md:flex">
                 {
                     menus.map((menu: MenuType) => menu.children && menu.children.length > 0 ? (
                         <NavigationMenuItem key={menu.title}>
-                            <NavigationMenuTrigger>{menu.title}</NavigationMenuTrigger>
+                            <NavigationMenuTrigger className="px-0 rounded-none bg-transparent hover:bg-transparent font-normal hover:text-primary hover:border-primary hover:border-b-2">{menu.title}</NavigationMenuTrigger>
                             <NavigationMenuContent>
                                 <ul className="grid min-w-[200px] gap-4">
                                     {menu.children.map((child: MenuType) => (
@@ -67,7 +60,7 @@ export function Navbar() {
                             </NavigationMenuContent>
                         </NavigationMenuItem>
                     ) : (<NavigationMenuItem key={menu.title}>
-                        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                        <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "px-0 rounded-none bg-transparent hover:bg-transparent font-normal hover:text-primary hover:border-primary hover:border-b-2")}>
                             <Link href={menu.href} className="flex-row items-center gap-2">
                                 {menu.title}
                             </Link>
@@ -75,7 +68,7 @@ export function Navbar() {
                     </NavigationMenuItem>)
                     )
                 }
-            </NavigationMenuList>
-        </NavigationMenu>
+            </NavigationMenuList >
+        </NavigationMenu >
     )
 }

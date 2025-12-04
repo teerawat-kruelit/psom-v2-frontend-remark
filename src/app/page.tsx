@@ -1,14 +1,15 @@
 import { Navbar } from '@/components/layout/navbar'
-import { DemoComponent } from '@/features/demo/demo-component'
-import { FetchTableDemo } from '@/features/demo/fetch-table-demo'
+import { PageHeader } from '@/components/layout/page-header'
 
 export default function Home() {
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
-      <main className="row-start-2 flex w-full max-w-5xl flex-col items-center gap-8 sm:items-start">
-        <h1 className="text-center text-4xl font-bold sm:text-left">Project Initialized</h1>
-        <DemoComponent />
-        <FetchTableDemo />
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      <PageHeader />
+      <main className="flex-1 p-8 container mx-auto">
+        <div className="bg-white rounded-lg shadow p-6 min-h-[500px]">
+          <h1 className="text-2xl font-bold mb-4">Content</h1>
+          <p className="text-gray-600">Main content area...</p>
+        </div>
       </main>
     </div>
   )
