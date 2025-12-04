@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { User, Employee, AuthUser } from '@/types'
-import { LoginFormValues } from '@/features/auth/components/login-form'
+import { LoginFormValues } from '@/features/auth/login-form'
 import { api } from '@/lib/axios'
 
 interface AppState {
