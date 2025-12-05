@@ -3,29 +3,25 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-const inputVariants = cva(
-  '',
-  {
-    variants: {
-      size: {
-        default: 'h-9 px-3 text-base',
-        sm: 'h-8 px-2 text-xs',
-        md: 'h-9 px-3 text-base',
-        lg: 'h-10 px-4 text-lg',
-        xl: 'h-12 px-5 text-xl',
-        ['2xl']: 'h-14 px-6 text-2xl',
-        ['3xl']: 'h-16 px-7 text-3xl',
-      },
+const inputVariants = cva('', {
+  variants: {
+    size: {
+      default: 'h-9 px-3 text-base',
+      sm: 'h-8 px-2 text-xs',
+      md: 'h-9 px-3 text-base',
+      lg: 'h-10 px-4 text-lg',
+      xl: 'h-12 px-5 text-xl',
+      ['2xl']: 'h-14 px-6 text-2xl',
+      ['3xl']: 'h-16 px-7 text-3xl',
     },
-    defaultVariants: {
-      size: 'md',
-    },
-  }
-)
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+})
 
 export interface InputProps
-  extends Omit<React.ComponentProps<'input'>, 'prefix' | 'size'>,
-  VariantProps<typeof inputVariants> {
+  extends Omit<React.ComponentProps<'input'>, 'prefix' | 'size'>, VariantProps<typeof inputVariants> {
   prefix?: React.ReactNode
   suffix?: React.ReactNode
 }
@@ -33,11 +29,7 @@ export interface InputProps
 function Input({ className, type, prefix, suffix, size, ...props }: InputProps) {
   return (
     <div className="relative flex items-center">
-      {prefix && (
-        <div className="absolute left-3 flex items-center text-muted-foreground h-4 w-4">
-          {prefix}
-        </div>
-      )}
+      {prefix && <div className="text-muted-foreground absolute left-3 flex h-4 w-4 items-center">{prefix}</div>}
       <input
         type={type}
         data-slot="input"
@@ -52,11 +44,7 @@ function Input({ className, type, prefix, suffix, size, ...props }: InputProps) 
         )}
         {...props}
       />
-      {suffix && (
-        <div className="absolute right-3 flex items-center text-muted-foreground h-4 w-4">
-          {suffix}
-        </div>
-      )}
+      {suffix && <div className="text-muted-foreground absolute right-3 flex h-4 w-4 items-center">{suffix}</div>}
     </div>
   )
 }

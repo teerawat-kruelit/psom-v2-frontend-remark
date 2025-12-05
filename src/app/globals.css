@@ -140,7 +140,7 @@ body {
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 rounded-full;
+    @apply rounded-full bg-gray-300;
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
@@ -161,7 +161,7 @@ body {
   }
 
   .scrollbar-xs::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 rounded-full;
+    @apply rounded-full bg-gray-300;
   }
 
   .scrollbar-xs::-webkit-scrollbar-thumb:hover {

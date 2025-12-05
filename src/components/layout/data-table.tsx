@@ -15,6 +15,7 @@ export interface Column<T> {
   title: React.ReactNode
   dataIndex?: keyof T
   key?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   render?: (value: any, record: T, index: number) => React.ReactNode
   width?: string | number
   className?: string
@@ -36,7 +37,14 @@ interface DataTableProps<T> {
   }
 }
 
-export function DataTable<T>({ columns, dataSource, loading, rowKey = 'id' as keyof T, className, pagination }: DataTableProps<T>) {
+export function DataTable<T>({
+  columns,
+  dataSource,
+  loading,
+  rowKey = 'id' as keyof T,
+  className,
+  pagination,
+}: DataTableProps<T>) {
   if (loading) {
     return <div className="p-8 text-center">Loading data...</div>
   }
@@ -153,39 +161,41 @@ export function DataTable<T>({ columns, dataSource, loading, rowKey = 'id' as ke
                     className={pagination.current <= 1 ? 'pointer-events-none opacity-50' : ''}
                   />
                 </PaginationItem>
-                {Array.from({ length: Math.ceil(pagination.total / pagination.pageSize) }, (_, i) => i + 1).map((page) => {
-                  // Simple pagination logic: show all pages for now, can be optimized for large numbers later
-                  if (
-                    Math.ceil(pagination.total / pagination.pageSize) > 7 &&
-                    page > 1 &&
-                    page < Math.ceil(pagination.total / pagination.pageSize) &&
-                    Math.abs(page - pagination.current) > 1
-                  ) {
-                    if (Math.abs(page - pagination.current) === 2) {
-                      return (
-                        <PaginationItem key={page}>
-                          <PaginationEllipsis />
-                        </PaginationItem>
-                      )
+                {Array.from({ length: Math.ceil(pagination.total / pagination.pageSize) }, (_, i) => i + 1).map(
+                  (page) => {
+                    // Simple pagination logic: show all pages for now, can be optimized for large numbers later
+                    if (
+                      Math.ceil(pagination.total / pagination.pageSize) > 7 &&
+                      page > 1 &&
+                      page < Math.ceil(pagination.total / pagination.pageSize) &&
+                      Math.abs(page - pagination.current) > 1
+                    ) {
+                      if (Math.abs(page - pagination.current) === 2) {
+                        return (
+                          <PaginationItem key={page}>
+                            <PaginationEllipsis />
+                          </PaginationItem>
+                        )
+                      }
+                      return null
                     }
-                    return null
-                  }
 
-                  return (
-                    <PaginationItem key={page}>
-                      <PaginationLink
-                        href="#"
-                        isActive={page === pagination.current}
-                        onClick={(e) => {
-                          e.preventDefault()
-                          pagination.onChange(page, pagination.pageSize)
-                        }}
-                      >
-                        {page}
-                      </PaginationLink>
-                    </PaginationItem>
-                  )
-                })}
+                    return (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          href="#"
+                          isActive={page === pagination.current}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            pagination.onChange(page, pagination.pageSize)
+                          }}
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    )
+                  }
+                )}
                 <PaginationItem>
                   <PaginationNext
                     href="#"
