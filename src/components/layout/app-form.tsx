@@ -46,7 +46,11 @@ export function AppForm<T extends FieldValues>({
   return (
     <Form {...form}>
       <AppFormContext.Provider value={{ readOnly }}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className={cn('space-y-4', className)} autoComplete={autoComplete}>
+        <form
+          onSubmit={onSubmit ? form.handleSubmit(onSubmit) : undefined}
+          className={cn('space-y-4', className)}
+          autoComplete={autoComplete}
+        >
           {children(form)}
         </form>
       </AppFormContext.Provider>

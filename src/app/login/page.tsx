@@ -1,6 +1,7 @@
+'use client'
+
 import { Image } from '@/components/layout/fill-image'
-import { LoginForm } from '@/features/auth/login-form'
-import { useAppStore } from '@/store/use-app-store'
+import { LoginForm, type LoginFormValues } from '@/features/auth/login-form'
 import { LoginFooter } from '@/features/auth/login-footer'
 
 export default function Page() {
@@ -12,7 +13,7 @@ export default function Page() {
         </div>
         <h1 className="text-3xl tracking-wide">Program of Sale to Operation Management</h1>
         <div className="w-[300px]">
-          <LoginForm onSubmit={useAppStore((state) => state.login)} />
+          <LoginForm />
         </div>
       </div>
       <LoginFooter />

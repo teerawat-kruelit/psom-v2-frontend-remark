@@ -25,7 +25,7 @@ export interface AnimationConfig {
   delay?: number
 }
 
-const multiSelectVariants = cva('m-1 transition-all duration-300 ease-in-out', {
+const multiSelectVariants = cva('m-1 transition-all duration-75 ease-in-out', {
   variants: {
     variant: {
       default: 'border-foreground/10 text-foreground bg-card hover:bg-card/80',
@@ -77,7 +77,6 @@ interface MultiSelectProps
   animationConfig?: AnimationConfig
   maxCount?: number
   modalPopover?: boolean
-  asChild?: boolean
   className?: string
   hideSelectAll?: boolean
   searchable?: boolean
@@ -133,7 +132,6 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       animationConfig,
       maxCount = 3,
       modalPopover = false,
-      asChild = false,
       className,
       hideSelectAll = false,
       searchable = true,

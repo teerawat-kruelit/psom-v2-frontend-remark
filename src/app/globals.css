@@ -176,4 +176,25 @@ body {
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
   }
+
+  .scrollbar-custom-table {
+    scrollbar-width: auto;
+  }
+
+  .scrollbar-custom-table::-webkit-scrollbar {
+    width: 10px;
+    height: 16px;
+  }
+
+  .scrollbar-custom-table::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-custom-table::-webkit-scrollbar-thumb {
+    @apply rounded-full border-[3px] border-transparent bg-gray-300 bg-clip-content;
+  }
+
+  .scrollbar-custom-table::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
 }

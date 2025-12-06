@@ -11,8 +11,17 @@ const menuList: MenuItem[] = [
   { href: '/data-management/department-management', title: 'จัดการแผนก' },
   { href: '/data-management/position-management', title: 'จัดการตำแหน่ง' },
   { href: '/data-management/role-management', title: 'จัดการบทบาทและสิทธิ์' },
-  { href: '/data-management/employee-management', title: 'จัดการพนักงาน' },
-  { href: '/data-management/product-category-management', title: 'จัดการหมวดหมู่สินค้า' },
+  {
+    href: '/data-management/employee-management',
+    title: 'จัดการพนักงาน',
+
+    children: [{ href: '/data-management/product-category-management', title: 'จัดการหมวดหมู่สินค้า' }],
+  },
+  {
+    href: '/data-management/product-category-management',
+    title: 'จัดการหมวดหมู่สินค้า',
+    children: [{ href: '/data-management/product-category-management', title: 'จัดการหมวดหมู่สินค้า' }],
+  },
   {
     title: 'จัดการรายละเอียด',
     href: '#',
@@ -58,23 +67,25 @@ export default function DataManagementLayout({ children }: { children: React.Rea
     <div className="relative flex h-full gap-2 p-2">
       <div
         className={cn(
-          'overflow-hidden transition-all duration-300 ease-in-out',
-          isOpen ? 'w-64 opacity-100' : 'w-0 opacity-0'
+          'overflow-hidden transition-all duration-75 ease-in-out',
+          'absolute top-2 bottom-2 left-2 z-40 md:relative md:inset-auto md:h-auto',
+          isOpen ? 'w-58 opacity-100' : 'w-0 opacity-0'
         )}
       >
         <AppSidebar menuList={menuList} />
       </div>
-      <main className="flex-1 overflow-y-auto bg-gray-50 p-6 transition-all duration-300">{children}</main>
+      {isOpen && <div className="fixed inset-0 z-30 bg-black/50 md:hidden" onClick={() => setIsOpen(false)} />}
+      <main className="flex-1 overflow-y-auto bg-white p-4 transition-all duration-75">{children}</main>
       <Button
         variant="default"
         size="icon"
         className={cn(
-          'absolute top-4 z-50 h-8 w-8 rounded-full bg-gray-400/90 text-white transition-all duration-300 ease-in-out hover:bg-gray-400',
-          isOpen ? 'left-[280px]' : 'left-6'
+          'absolute top-4 z-50 h-8 w-8 rounded-full bg-gray-400/90 text-white transition-all duration-75 ease-in-out hover:bg-gray-400',
+          isOpen ? 'left-[256px]' : 'left-6'
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <ChevronLeft className={cn('h-5 w-5 transition-transform duration-300', !isOpen && 'rotate-180')} />
+        <ChevronLeft className={cn('h-5 w-5 transition-transform duration-75', !isOpen && 'rotate-180')} />
       </Button>
     </div>
   )

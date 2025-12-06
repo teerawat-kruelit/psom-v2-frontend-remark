@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { format } from 'date-fns'
 import { Calendar as CalendarIcon } from 'lucide-react'
 
@@ -17,8 +16,6 @@ interface DatePickerProps {
 }
 
 export function DatePicker({ value, onChange, placeholder = 'เลือกวันที่', className }: DatePickerProps) {
-  const [open, setOpen] = useState(false)
-
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -37,7 +34,6 @@ export function DatePicker({ value, onChange, placeholder = 'เลือกว�
           captionLayout="dropdown"
           onSelect={(date) => {
             onChange?.(date)
-            setOpen(false)
           }}
         />
       </PopoverContent>

@@ -1,29 +1,84 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useBranchManagementStore } from '@/store/use-branch-management-store'
+import { Column } from '@/components/layout/data-table'
 import { DataTable } from '@/components/layout/data-table'
-import { Branch, columns } from './columns'
-
-const data: Branch[] = [
-  {
-    id: '1',
-    code: 'B001B001B001B001B001B001B001B001B001B001B001B001B001',
-    name: 'สาขาใหญ่',
-    remark: 'สำนักงานใหญ่',
-  },
-  {
-    id: '2',
-    code: 'B002',
-    name: 'สาขาเชียงใหม่',
-    remark: 'ภาคเหนือ',
-  },
-  {
-    id: '3',
-    code: 'B003',
-    name: 'สาขาภูเก็ต',
-    remark: 'ภาคใต้',
-  },
-]
+import { TableActionOption } from '@/components/layout/table-action-option'
+import { Branch } from '@/types'
+import { Settings } from 'lucide-react'
+import { DELETE } from '@/lib/axios'
 
 export function BranchManagementTable() {
-  return <DataTable columns={columns} dataSource={data} />
+  const { dataTable, isLoading, fetchBranches, pagination, setPagination, sort, setSort, setIsOpenFormModal } =
+    useBranchManagementStore()
+
+  const columns: Column<Branch>[] = [
+    {
+      dataIndex: 'code',
+      title: 'รหัสสาขา PMK',
+      width: 150,
+      sorter: true,
+    },
+    {
+      dataIndex: 'name',
+      title: 'ชื่อเรียกสาขา PMK',
+      width: 300,
+      sorter: true,
+    },
+    {
+      dataIndex: 'remark',
+      title: 'หมายเหตุ',
+    },
+    {
+      key: 'actions',
+      title: <Settings className="mx-auto" size={20} />,
+      align: 'center',
+      width: 50,
+      render: (record) => {
+        return (
+          <TableActionOption
+            options={[
+              {
+                type: 'view',
+                onClick: () => setIsOpenFormModal(true, 'view', record.id),
+              },
+              { type: 'edit', onClick: () => setIsOpenFormModal(true, 'edit', record.id) },
+              {
+                type: 'delete',
+                onClick: async () => {
+                  const response = await DELETE(`/central/branch-management/${record.id}/delete`)
+                  if (!response.isError) {
+                    fetchBranches()
+                  }
+                },
+              },
+            ]}
+          />
+        )
+      },
+    },
+  ]
+
+  useEffect(() => {
+    fetchBranches()
+  }, [fetchBranches])
+
+  return (
+    <DataTable
+      columns={columns}
+      dataSource={dataTable}
+      loading={isLoading}
+      pagination={{
+        current: pagination.current,
+        pageSize: pagination.pageSize,
+        total: pagination.total,
+        onChange: (page, size) => {
+          setPagination({ current: page, pageSize: size })
+        },
+      }}
+      sort={sort}
+      onSort={setSort}
+    />
+  )
 }

@@ -26,11 +26,9 @@ export function useAppAlertDialog() {
       onOpenChange={setOpen}
       title={config.title}
       description={config.description}
-      cancelText={config.cancelText}
-      actionText={config.actionText}
-      onAction={() => {
-        config.onAction()
-      }}
+      cancelText={config.cancelText || 'ยกเลิก'}
+      actionText={config.actionText || 'ยืนยัน'}
+      onAction={config.onAction}
     />
   ) : null
 

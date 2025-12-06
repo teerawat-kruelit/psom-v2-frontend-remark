@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import { AppForm } from '@/components/layout/app-form'
 import { AppFormField } from '@/components/layout/app-form-field'
+import { api, POST } from '@/lib/axios'
 
 const loginSchema = z.object({
   username: z.string().nonempty(),
@@ -21,24 +22,27 @@ export type LoginFormValues = z.infer<typeof loginSchema>
 
 interface LoginFormProps {
   className?: string
-  onSubmit?: (data: LoginFormValues) => Promise<void>
 }
 
-export function LoginForm({ className, onSubmit }: LoginFormProps) {
+export function LoginForm({ className }: LoginFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
   async function handleSubmit(data: LoginFormValues) {
     setIsLoading(true)
     try {
-      if (onSubmit) {
-        await onSubmit(data)
-      } else {
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-        toast.success('Login Successful')
+      const response = await api.post<any>('/authentication/sign-in', data)
+      if (response?.data?.message) {
+        if (response.data.isError) {
+          toast.error(response.data.message)
+        } else {
+          toast.success(response.data.message)
+        }
       }
-    } catch (error) {
-      toast.error('Login Failed')
+
+      if (!response.data.isError) {
+        window.location.href = '/'
+      }
     } finally {
       setIsLoading(false)
     }
@@ -47,7 +51,7 @@ export function LoginForm({ className, onSubmit }: LoginFormProps) {
   return (
     <div className={cn('grid gap-6', className)}>
       <AppForm schema={loginSchema} defaultValues={{ username: '', password: '' }} onSubmit={handleSubmit}>
-        {(form) => (
+        {() => (
           <>
             <AppFormField name="username" label="Username" required>
               <Input size={'lg'} placeholder="username" prefix={<User />} />

@@ -1,13 +1,16 @@
 'use client'
 
-import { Bell, LogOut, Power } from 'lucide-react'
+import { Bell, Power } from 'lucide-react'
 import { Image } from '@/components/layout/fill-image'
 import { Button } from '@/components/ui/button'
-import { useAppStore } from '@/store/use-app-store'
 import { Navbar } from './navbar'
+import { POST } from '@/lib/axios'
 
 export function PageHeader() {
-  const logout = useAppStore((state) => state.logout)
+  const logout = async () => {
+    await POST('/authentication/sign-out', {})
+    window.location.href = '/login'
+  }
 
   return (
     <>
@@ -21,11 +24,11 @@ export function PageHeader() {
           </Button>
           <Button
             variant="default"
-            className="group flex h-8 w-8 items-center justify-center gap-0 overflow-hidden bg-red-500 p-0 text-white transition-all duration-300 hover:w-[130px] hover:justify-start hover:bg-red-600 hover:px-3"
+            className="group flex h-8 w-8 items-center justify-center gap-0 overflow-hidden bg-red-500 p-0 text-white transition-all duration-75 hover:w-[130px] hover:justify-start hover:bg-red-600 hover:px-3"
             onClick={logout}
           >
             <Power className="h-5 w-5 shrink-0" />
-            <span className="w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-300 group-hover:ml-2 group-hover:w-auto group-hover:opacity-100">
+            <span className="w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-75 group-hover:ml-2 group-hover:w-auto group-hover:opacity-100">
               ออกจากระบบ
             </span>
           </Button>
