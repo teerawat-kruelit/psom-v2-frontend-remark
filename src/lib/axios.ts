@@ -139,7 +139,7 @@ export const GET_MASTER = async <T>(target: MasterKey | MasterKey[]) => {
       })
       .filter((t): t is { key: MasterKey; url: string } => t !== undefined)
 
-    return await GET_MULTI<T>(payload)
+    return GET_MULTI<T>(payload)
   } else {
     const match = masters.find((m) => m.key === target)
     if (!match) return null

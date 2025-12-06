@@ -29,3 +29,13 @@ export interface Department {
   name: string
   remark: string | null
 }
+
+export interface Position {
+  id: number
+  departmentId: number | null
+  departmentCode: string | null
+  departmentName: string | null
+  code: string | null
+  name: string
+  remark: string | null
+}

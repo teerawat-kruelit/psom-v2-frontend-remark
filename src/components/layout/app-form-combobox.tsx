@@ -28,16 +28,17 @@ interface AppFormComboboxProps {
 export function AppFormCombobox({
   name,
   label,
-  placeholder = 'Select option',
-  searchPlaceholder = 'Search...',
-  emptyText = 'No results found.',
+  placeholder = '',
+  searchPlaceholder = 'ค้นหา...',
+  emptyText = 'ไม่พบข้อมูล',
   options,
   required,
 }: AppFormComboboxProps) {
+  const [open, setOpen] = React.useState(false)
   return (
     <AppFormField name={name} label={label} required={required}>
       {(field) => (
-        <Popover>
+        <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <FormControl>
               <Button
@@ -45,7 +46,13 @@ export function AppFormCombobox({
                 role="combobox"
                 className={cn('w-full justify-between', !field.value && 'text-muted-foreground')}
               >
-                {field.value ? options.find((option) => option.value === field.value)?.label : placeholder}
+                <span>
+                  {field.value
+                    ? options.find((option) => option.value === field.value)?.label
+                    : required
+                      ? placeholder
+                      : 'ไม่ระบุ'}
+                </span>
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </FormControl>
@@ -56,20 +63,28 @@ export function AppFormCombobox({
               <CommandList>
                 <CommandEmpty>{emptyText}</CommandEmpty>
                 <CommandGroup>
-                  {options.map((option) => (
-                    <CommandItem
-                      value={option.label}
-                      key={option.value}
-                      onSelect={() => {
-                        field.onChange(option.value)
-                      }}
-                    >
-                      <Check
-                        className={cn('mr-2 h-4 w-4', option.value === field.value ? 'opacity-100' : 'opacity-0')}
-                      />
-                      {option.label}
-                    </CommandItem>
-                  ))}
+                  {[...(!required ? [{ label: 'ไม่ระบุ', value: undefined }] : []), ...(options || [])].map(
+                    (option) => (
+                      <CommandItem
+                        value={option.value}
+                        key={option.value || 'undefined'}
+                        onSelect={() => {
+                          field.onChange(option.value)
+                          setOpen(false)
+                        }}
+                      >
+                        <Check
+                          className={cn(
+                            'mr-2 h-4 w-4',
+                            option.value === field.value || (option.value === '' && field.value === undefined)
+                              ? 'opacity-100'
+                              : 'opacity-0'
+                          )}
+                        />
+                        {option.label}
+                      </CommandItem>
+                    )
+                  )}
                 </CommandGroup>
               </CommandList>
             </Command>

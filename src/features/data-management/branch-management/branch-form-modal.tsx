@@ -76,7 +76,7 @@ export function BranchFormModal() {
           {modal.mode === 'edit' && <DialogTitle className="text-center text-2xl">แก้ไขข้อมูลสาขา</DialogTitle>}
           {modal.mode === 'view' && <DialogTitle className="text-center text-2xl">รายละเอียดสาขา</DialogTitle>}
         </DialogHeader>
-        <div className="py-4">
+        <div className="pt-4">
           <AppForm
             schema={branchSchema}
             defaultValues={{
@@ -154,7 +154,7 @@ export function BranchFormModal() {
                     )}
                     <Button
                       className="w-24"
-                      variant="outline"
+                      variant="cancel"
                       type="button"
                       disabled={isLoading}
                       onClick={() => setIsOpenFormModal(false)}

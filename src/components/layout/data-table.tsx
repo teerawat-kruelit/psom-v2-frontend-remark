@@ -144,7 +144,7 @@ export function DataTable<T>({
                     (isStickyLeft || isStickyRight) && 'z-40',
                     isStickyRight && 'border-l shadow-[-5px_0_10px_-5px_rgba(0,0,0,0.1)]',
                     isStickyLeft && 'border-r shadow-[5px_0_10px_-5px_rgba(0,0,0,0.1)]',
-                    col.sorter && 'cursor-pointer hover:bg-gray-400'
+                    col.sorter && 'cursor-pointer transition-colors hover:bg-gray-400/60'
                   )}
                   style={style}
                   onClick={() => {
