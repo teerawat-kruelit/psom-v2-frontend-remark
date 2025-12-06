@@ -39,3 +39,9 @@ export interface Position {
   name: string
   remark: string | null
 }
+
+export interface ProductCategory {
+  id: number
+  name: string
+  remark: string | null
+}

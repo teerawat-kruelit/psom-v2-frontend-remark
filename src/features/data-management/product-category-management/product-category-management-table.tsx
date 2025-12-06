@@ -1,34 +1,22 @@
 'use client'
 
 import { useEffect } from 'react'
-import { usePositionManagementStore } from '@/store/use-position-management-store'
+import { useProductCategoryManagementStore } from '@/store/use-product-category-management-store'
 import { Column } from '@/components/layout/data-table'
 import { DataTable } from '@/components/layout/data-table'
 import { TableActionOption } from '@/components/layout/table-action-option'
-import { Position } from '@/types'
+import { ProductCategory } from '@/types'
 import { Settings } from 'lucide-react'
 import { DELETE } from '@/lib/axios'
 
-export function PositionManagementTable() {
-  const { dataTable, isLoading, fetchPositions, pagination, setPagination, sort, setSort, setIsOpenFormModal } =
-    usePositionManagementStore()
+export function ProductCategoryManagementTable() {
+  const { dataTable, isLoading, fetchProductCategories, pagination, setPagination, sort, setSort, setIsOpenFormModal } =
+    useProductCategoryManagementStore()
 
-  const columns: Column<Position>[] = [
-    {
-      dataIndex: 'departmentName',
-      title: 'แผนก',
-      width: 200,
-      sorter: true,
-    },
-    {
-      dataIndex: 'code',
-      title: 'รหัสตำแหน่ง',
-      width: 150,
-      sorter: true,
-    },
+  const columns: Column<ProductCategory>[] = [
     {
       dataIndex: 'name',
-      title: 'ชื่อตำแหน่ง',
+      title: 'ชื่อหมวดหมู่สินค้า',
       width: 300,
       sorter: true,
     },
@@ -53,9 +41,9 @@ export function PositionManagementTable() {
               {
                 type: 'delete',
                 onClick: async () => {
-                  const response = await DELETE(`/central/position-management/${record.id}/delete`)
+                  const response = await DELETE(`/central/product-category-management/${record.id}/delete`)
                   if (!response.isError) {
-                    fetchPositions()
+                    fetchProductCategories()
                   }
                 },
               },
@@ -67,8 +55,8 @@ export function PositionManagementTable() {
   ]
 
   useEffect(() => {
-    fetchPositions()
-  }, [fetchPositions])
+    fetchProductCategories()
+  }, [fetchProductCategories])
 
   return (
     <DataTable

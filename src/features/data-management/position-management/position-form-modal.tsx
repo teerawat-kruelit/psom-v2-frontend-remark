@@ -79,11 +79,11 @@ export function PositionFormModal() {
     <Dialog open={modal.isOpen} onOpenChange={(open) => setIsOpenFormModal(open)}>
       <DialogContent className="scrollbar-hidden max-h-[90vh] max-w-[90vw] overflow-y-auto sm:max-w-[500px]">
         <DialogHeader>
-          {modal.mode === 'create' && <DialogTitle className="text-center text-2xl">สร้างข้อมูลตำแหน่ง</DialogTitle>}
-          {modal.mode === 'edit' && <DialogTitle className="text-center text-2xl">แก้ไขข้อมูลตำแหน่ง</DialogTitle>}
-          {modal.mode === 'view' && <DialogTitle className="text-center text-2xl">รายละเอียดตำแหน่ง</DialogTitle>}
+          {modal.mode === 'create' && <DialogTitle className="text-center text-xl">สร้างข้อมูลตำแหน่ง</DialogTitle>}
+          {modal.mode === 'edit' && <DialogTitle className="text-center text-xl">แก้ไขข้อมูลตำแหน่ง</DialogTitle>}
+          {modal.mode === 'view' && <DialogTitle className="text-center text-xl">รายละเอียดตำแหน่ง</DialogTitle>}
         </DialogHeader>
-        <div className="pt-4">
+        <div className="pt-2">
           <AppForm
             schema={positionSchema}
             defaultValues={{

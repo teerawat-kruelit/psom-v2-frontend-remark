@@ -72,11 +72,11 @@ export function BranchFormModal() {
     <Dialog open={modal.isOpen} onOpenChange={(open) => setIsOpenFormModal(open)}>
       <DialogContent className="scrollbar-hidden max-h-[90vh] max-w-[90vw] overflow-y-auto sm:max-w-[700px]">
         <DialogHeader>
-          {modal.mode === 'create' && <DialogTitle className="text-center text-2xl">สร้างข้อมูลสาขา</DialogTitle>}
-          {modal.mode === 'edit' && <DialogTitle className="text-center text-2xl">แก้ไขข้อมูลสาขา</DialogTitle>}
-          {modal.mode === 'view' && <DialogTitle className="text-center text-2xl">รายละเอียดสาขา</DialogTitle>}
+          {modal.mode === 'create' && <DialogTitle className="text-center text-xl">สร้างข้อมูลสาขา</DialogTitle>}
+          {modal.mode === 'edit' && <DialogTitle className="text-center text-xl">แก้ไขข้อมูลสาขา</DialogTitle>}
+          {modal.mode === 'view' && <DialogTitle className="text-center text-xl">รายละเอียดสาขา</DialogTitle>}
         </DialogHeader>
-        <div className="pt-4">
+        <div className="pt-2">
           <AppForm
             schema={branchSchema}
             defaultValues={{

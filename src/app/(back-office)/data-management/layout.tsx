@@ -11,17 +11,8 @@ const menuList: MenuItem[] = [
   { href: '/data-management/department-management', title: 'จัดการแผนก' },
   { href: '/data-management/position-management', title: 'จัดการตำแหน่ง' },
   { href: '/data-management/role-management', title: 'จัดการบทบาทและสิทธิ์' },
-  {
-    href: '/data-management/employee-management',
-    title: 'จัดการพนักงาน',
-
-    children: [{ href: '/data-management/product-category-management', title: 'จัดการหมวดหมู่สินค้า' }],
-  },
-  {
-    href: '/data-management/product-category-management',
-    title: 'จัดการหมวดหมู่สินค้า',
-    children: [{ href: '/data-management/product-category-management', title: 'จัดการหมวดหมู่สินค้า' }],
-  },
+  { href: '/data-management/employee-management', title: 'จัดการพนักงาน' },
+  { href: '/data-management/product-category-management', title: 'จัดการหมวดหมู่สินค้า' },
   {
     title: 'จัดการรายละเอียด',
     href: '#',
